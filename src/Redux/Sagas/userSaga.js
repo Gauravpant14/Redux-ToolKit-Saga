@@ -1,4 +1,5 @@
 import { call, delay, put, takeEvery, takeLatest } from 'redux-saga/effects'
+import { updateAges, updateName } from '../Reducers/userReducer'
 
 const getUserName = async(data) => {
     console.log(data,"we can also pass parameters inside call method ")
@@ -14,7 +15,7 @@ const getUserName = async(data) => {
 function* fetchUser(action) {
    try {
      const userName =  yield call(getUserName,action.payload)
-     yield put({type:"UPDATE_NAME_SUCCESS" , payload:userName})
+     yield put(updateName(userName))
 
    } catch (e) {
       console.log(e)
@@ -23,7 +24,7 @@ function* fetchUser(action) {
 
 function* updateAge(){
     yield delay(1000);
-    yield put({type:"UPDATE_AGE_SUCCESS", payload: 5})
+    yield put(updateAges(5))
 }
 
 // This is our watcher

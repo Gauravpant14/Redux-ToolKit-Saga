@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux' 
 const Profile = () => {
     const {name,age,joke} = useSelector(state => {
-        return state
+        return state.reducer
     });
     const dispatch = useDispatch()
     return (
@@ -11,6 +11,7 @@ const Profile = () => {
             <h2>Age: {age} </h2>
             <br />
             {joke}
+            <br/>
             <br/>
             <button onClick={()=> dispatch({type:'UPDATE_NAME',payload: 55})}>Update Name</button>
             <button onClick={()=> dispatch({type:'UPDATE_AGE'})}>Update Age</button>

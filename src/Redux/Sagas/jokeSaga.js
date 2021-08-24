@@ -1,4 +1,5 @@
 import { call, delay, put, takeEvery, takeLatest } from 'redux-saga/effects'
+import { updateJoke } from '../Reducers/userReducer'
 
 
 //step-3
@@ -12,7 +13,7 @@ const fetchJoke = async() => {
 function* getJoke(action) {
    try {
      const userName =  yield fetchJoke()
-     yield put({type:"GET_JOKE_SUCCESS" , payload:userName})
+     yield put(updateJoke(userName))
 
    } catch (e) {
       console.log(e)
