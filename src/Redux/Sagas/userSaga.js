@@ -1,4 +1,4 @@
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
+import { call, delay, put, takeEvery, takeLatest } from 'redux-saga/effects'
 
 const getUserName = async() => {
    const res = await fetch('https://jsonplaceholder.typicode.com/users')
@@ -8,6 +8,7 @@ const getUserName = async() => {
 
 //for dispatching actions inside saga's , we use put method, and use yield before put
 
+// Step: 2
 
 function* fetchUser() {
    try {
@@ -19,6 +20,11 @@ function* fetchUser() {
    }
 }
 
+function* updateAge(){
+    yield delay(3000);
+    yield put({type:"UPDATE_AGE_SUCCESS", payload: 5})
+}
+
 // This is our watcher
 // redux saga resumes and pauses the functions excutions 
 // using generator functions
@@ -28,8 +34,11 @@ function* fetchUser() {
 
 //we can consider yield like await
 
+// STEP: 1
+
 function* userSaga() {
   yield takeEvery("UPDATE_NAME", fetchUser);
+  yield takeLatest("UPDATE_AGE",updateAge)
 
   //here we can use takeLatest instead of takeEvery if we dont want to access network request unnecessary...
 }

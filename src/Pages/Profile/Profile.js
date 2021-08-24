@@ -10,6 +10,8 @@ const Profile = () => {
             <h2>Candidate Name: {name}</h2>
             <h2>Age: {age} </h2>
             <button onClick={()=> dispatch({type:'UPDATE_NAME'})}>Update Name</button>
+            <button onClick={()=> dispatch({type:'UPDATE_AGE'})}>Update Age</button>
+            
         </div>
     )
 }

@@ -9,7 +9,8 @@ export const userReducer = createReducer(initialState,(builder) => {
     builder.addCase('UPDATE_NAME_SUCCESS',(state,action) => {
         state.name = action.payload
     })
-    builder.addCase('UPDATE_AGE',(state,action) => {
-        state.age = action.payload
+    builder.addCase('UPDATE_AGE_SUCCESS',(state,action) => {
+        state.age = state.age + action.payload
     })
+  
 })
