@@ -1,6 +1,7 @@
 import { call, delay, put, takeEvery, takeLatest } from 'redux-saga/effects'
 
-const getUserName = async() => {
+const getUserName = async(data) => {
+    console.log(data,"we can also pass parameters inside call method ")
    const res = await fetch('https://jsonplaceholder.typicode.com/users')
    const result = await res.json()
    return result[Math.floor(Math.random() * 11)].name 
@@ -10,9 +11,9 @@ const getUserName = async() => {
 
 // Step: 2
 
-function* fetchUser() {
+function* fetchUser(action) {
    try {
-     const userName =  yield getUserName()
+     const userName =  yield call(getUserName,action.payload)
      yield put({type:"UPDATE_NAME_SUCCESS" , payload:userName})
 
    } catch (e) {
@@ -21,7 +22,7 @@ function* fetchUser() {
 }
 
 function* updateAge(){
-    yield delay(3000);
+    yield delay(1000);
     yield put({type:"UPDATE_AGE_SUCCESS", payload: 5})
 }
 
@@ -38,7 +39,7 @@ function* updateAge(){
 
 function* userSaga() {
   yield takeEvery("UPDATE_NAME", fetchUser);
-  yield takeLatest("UPDATE_AGE",updateAge)
+  yield takeLatest("UPDATE_AGE",updateAge);
 
   //here we can use takeLatest instead of takeEvery if we dont want to access network request unnecessary...
 }
